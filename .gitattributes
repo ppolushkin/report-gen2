@@ -1,0 +1,25 @@
+# define filetype for some well known extensions
+
+*.bat text
+*.css text
+.gitignore text
+*.html text
+*.java text diff=java
+*.js text
+*.log text
+*.properties text
+*.txt text
+*.xml text
+*.xsd text
+*.sql text
+
+*.gif binary
+*.ico binary
+*.jar binary
+*.jpg binary
+*.otf binary
+*.pdf binary
+*.png binary
+*.ttf binary
+*.zip binary
+
