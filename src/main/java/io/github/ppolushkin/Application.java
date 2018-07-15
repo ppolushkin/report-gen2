@@ -3,6 +3,7 @@ package io.github.ppolushkin;
 import io.github.ppolushkin.domain.ExcelReader;
 import io.github.ppolushkin.domain.ReportData;
 import io.github.ppolushkin.domain.TemplateService;
+import org.apache.poi.ss.util.CellReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -29,8 +30,15 @@ public class Application implements CommandLineRunner {
     @Value("${startLine}")
     private int startLine;
 
+    @Value("${endLine}")
+    private int endLine;
+
     @Value("${outputFolder}")
     private String outputFolder;
+
+    private static final int FIRST_LINE = 1;
+
+    private static final short FIRST_GEN_COL = (short) (new CellReference("J1").getCol() + 1);
 
     @Autowired
     private ExcelReader excelReader;
@@ -40,10 +48,13 @@ public class Application implements CommandLineRunner {
 
     @PostConstruct
     private void init() {
+        logger.log(Level.INFO, "********************************");
         logger.log(Level.INFO, "EXCEL LOCATION " + excelLocation);
         logger.log(Level.INFO, "SHEET NAME " + sheetName);
         logger.log(Level.INFO, "START LINE " + startLine);
+        logger.log(Level.INFO, "END LINE   " + endLine);
         logger.log(Level.INFO, "OUTPUT FOLDER " + outputFolder);
+        logger.log(Level.INFO, "********************************");
     }
 
     @Override
@@ -51,41 +62,52 @@ public class Application implements CommandLineRunner {
 
         excelReader.loadWorkBook(excelLocation, sheetName);
 
-        for (int patientNum = 0; patientNum < 17; patientNum++) {
-            ReportData reportData = getReportData(patientNum);
-            generateReport(reportData);
+        for (int line = startLine; line <= endLine; line+=3) {
+            ReportData reportData = getReportData(line);
+//            generateReport(reportData);
         }
 
     }
 
-    private ReportData getReportData(int patientNum) {
+    private ReportData getReportData(int lineNumber) {
 
         ReportData reportData = new ReportData();
-        reportData.tester = excelReader.readString("B" + startLine);
 
-        int patientLine = (startLine + 2) + patientNum * 6;
-        reportData.patient = excelReader.readString("B" + patientLine);
-        reportData.sex = excelReader.readString("A" + (patientLine + 1));
-        reportData.birthdate = excelReader.readString("B" + (patientLine + 1));
-        reportData.testdate = excelReader.readString("B" + (patientLine + 2));
-        reportData.department = excelReader.readString("B" + (patientLine + 3));
-        reportData.doctor = excelReader.readString("B" + (patientLine + 4));
-        reportData.abl = excelReader.readDouble("E" + (patientLine + 4));
+        reportData.lineNumber = lineNumber;
+        reportData.commonLogNumber = excelReader.readNumber("A" + lineNumber);
+        reportData.dnaNumber = excelReader.readNumber("F" + lineNumber);
+        reportData.rnaNumber = excelReader.readNumber("G" + lineNumber);
 
-        if (reportData.abl < 10_000) {
-            reportData.reAnalyze = true;
-        } else if (reportData.abl >= 10_000 && reportData.abl < 32_000) {
-            reportData.sensity = "4";
-        } else if (reportData.abl >= 32_000 && reportData.abl < 100_000) {
-            reportData.sensity = "4,5";
-        } else {
-            reportData.sensity = "5";
+        reportData.patient = excelReader.readString("B" + lineNumber);
+        reportData.sex = excelReader.readString("C" + lineNumber);
+        reportData.birthdate = excelReader.readString("C" + (lineNumber + 1));
+        reportData.testdate = excelReader.readString("C" + (lineNumber + 2));
+        reportData.department = excelReader.readString("E" + (lineNumber + 1));
+        reportData.doctor = excelReader.readString("E" + (lineNumber + 2));
+
+        int col = FIRST_GEN_COL;
+
+        String genTestDescription;
+        while (!(genTestDescription = excelReader.readString(col, FIRST_LINE)).isEmpty()) {
+            String genTestShortDescription = excelReader.readString(col, FIRST_LINE + 1);
+            if (genTestShortDescription.equalsIgnoreCase("Исследователь")) {
+                break;
+            }
+            String result = excelReader.readString(col, lineNumber);
+            boolean print = !excelReader.readString(col + 1, lineNumber).isEmpty();
+            reportData.addGenTest(genTestDescription, genTestShortDescription, result, print);
+            col += 2;
         }
 
-        if (!reportData.reAnalyze) {
-            reportData.bcr = excelReader.readDouble("C" + (patientLine + 4));
-            reportData.percent = excelReader.readDouble("G" + patientLine);
-            reportData.reached = reportData.percent <= 0.1;
+        for (int i = 0; i < 200; i++) {
+            if (excelReader.readString(FIRST_GEN_COL + i, FIRST_LINE).equalsIgnoreCase("Исследователь")) {
+                reportData.tester = excelReader.readString(FIRST_GEN_COL + i, lineNumber);
+                break;
+            }
+        }
+
+        if (reportData.tester == null) {
+            logger.log(Level.SEVERE, "Ячейка Исследователь не найдена! Она должна быть в первой строчке, например по адресу BF1.");
         }
 
         return reportData;
@@ -101,20 +123,6 @@ public class Application implements CommandLineRunner {
         templateService.replace("TESTDATE", reportData.testdate);
         templateService.replace("DEPARTMENT", reportData.department);
         templateService.replace("DOCTOR", reportData.doctor);
-        if (reportData.reAnalyze) {
-            templateService.replace("ABLNUM", "");
-            templateService.replace("BCRNUM", "");
-            templateService.replace("SENSITY", "");
-            templateService.replace("REACHED", "");
-
-            templateService.replace("PERCENT", "перебрать материал (концентрация гена-нормализатора ABL менее 10000 копий/реакция).");
-        } else {
-            templateService.replace("ABLNUM", "" + Math.round(reportData.abl));
-            templateService.replace("BCRNUM", "" + Math.round(reportData.bcr));
-            templateService.replace("SENSITY", reportData.sensity);
-            templateService.replace("REACHED", reportData.reached ? "достигнут" : "не достигнут");
-            templateService.replace("PERCENT", String.format("равна %.3f %% (IS).", reportData.percent));
-        }
         templateService.replace("TODAY", LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.uuuu")));
         templateService.save(outputFolder, reportData.patient + " RQ от " + reportData.testdate + ".doc");
     }
