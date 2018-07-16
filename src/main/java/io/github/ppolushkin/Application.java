@@ -13,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,9 +65,9 @@ public class Application implements CommandLineRunner {
 
         excelReader.loadWorkBook(excelLocation, sheetName);
 
-        for (int line = startLine; line <= endLine; line+=3) {
+        for (int line = startLine; line <= endLine; line += 3) {
             ReportData reportData = getReportData(line);
-//            generateReport(reportData);
+            generateReport(reportData);
         }
 
     }
@@ -81,8 +84,10 @@ public class Application implements CommandLineRunner {
         reportData.patient = excelReader.readString("B" + lineNumber);
         reportData.sex = excelReader.readString("C" + lineNumber);
         reportData.birthdate = excelReader.readString("C" + (lineNumber + 1));
-        reportData.testdate = excelReader.readString("C" + (lineNumber + 2));
+        reportData.diagnosis = excelReader.readString("D" + (lineNumber + 1));
         reportData.department = excelReader.readString("E" + (lineNumber + 1));
+        reportData.testdate = excelReader.readString("C" + (lineNumber + 2));
+        reportData.material = excelReader.readString("D" + (lineNumber + 2));
         reportData.doctor = excelReader.readString("E" + (lineNumber + 2));
 
         int col = FIRST_GEN_COL;
@@ -115,16 +120,55 @@ public class Application implements CommandLineRunner {
 
 
     private void generateReport(ReportData reportData) throws Exception {
-        templateService.open("template.doc");
-        templateService.replace("TESTER", reportData.tester);
+        templateService.open("template2.doc");
         templateService.replace("PATIENT", reportData.patient);
         templateService.replace("SEX", reportData.sex);
+        templateService.replace("DIAGNOSIS", reportData.diagnosis);
         templateService.replace("BIRTHDATE", reportData.birthdate);
-        templateService.replace("TESTDATE", reportData.testdate);
+        templateService.replace("TEST_DATE", reportData.testdate);
         templateService.replace("DEPARTMENT", reportData.department);
         templateService.replace("DOCTOR", reportData.doctor);
+        templateService.replace("TESTER", reportData.tester);
+        templateService.replace("MATERIAL", reportData.material);
         templateService.replace("TODAY", LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.uuuu")));
-        templateService.save(outputFolder, reportData.patient + " RQ от " + reportData.testdate + ".doc");
+
+        reportData.genTests.removeIf(t -> !t.print);
+
+        List<String> results = new ArrayList<>();
+        for (ReportData.GenTest genTest : reportData.genTests) {
+            results.add(genTest.description + "    " + genTest.result);
+        }
+        templateService.fillBulletList(results);
+
+        templateService.replace("NEGATIVE_COMMENT_TITLE", "Комментарий");
+        templateService.replace("negative_comment1", "1. Отрицательный результат определения мутации V617F в 14 экзоне гена JAK2 не \n" +
+                "исключает наличие других драйверных мутаций, характерных для МПН: в 12 экзоне гена \n" +
+                "JAK2, 9 экзоне гена CALR и 515 кодоне гена MPL.");
+        templateService.replace("negative_comment2", "2. Учитывая отрицательный результат определения наиболее часто встречающихся \n" +
+                "транскриптов гена BCR-ABL b2a2, b3a2 (белок p210) и e1a2, e1a3 (белок p190), диагноз \n" +
+                "ХМЛ представляется маловероятным. Однако, при наличии типичной клинической \n" +
+                "картины ХМЛ, для окончательного исключения диагноза рекомендовано проведение \n" +
+                "цитогенетического анализа клеток костного мозга на наличие транслокации \n" +
+                "t(9;22)(q34;q11), а также молекулярно-генетических исследований (FISH-анализа и ПЦР) \n" +
+                "для выявления редких транскриптов гена BCR-ABL (белка р230 и других).");
+
+
+        templateService.replace("CARL_COMMENT_TITLE", "Ссылки");
+        templateService.replace("carl_comment1", "1. Klampfl T, Gisslinger H, Harutyunyan AS, et al. Somatic mutations of calreticulin in myeloproliferative \n" +
+                "neoplasms. – N Engl J Med. – 2013. – Vol. 369. – № 25. – P. 2379-90.");
+        templateService.replace("carl_comment2", "2. Barbui T, Thiele J, Gisslinger H, et al. The 2016 WHO classification and diagnostic criteria for \n" +
+                "myeloproliferative neoplasms: document summary and in-depth discussion. – Blood Cancer J. – 2018. – Vol. 8. – \n" +
+                "№ 2. – 15 P. – doi: 10.1038/s41408-018-0054-y");
+
+        templateService.save(outputFolder, reportName(reportData));
+    }
+
+    private String reportName(ReportData reportData) {
+        TreeSet<String> uniqueTests = new TreeSet<>();
+        for (ReportData.GenTest genTest : reportData.genTests) {
+            uniqueTests.add(genTest.shortDescription);
+        }
+        return reportData.patient + " " + String.join(" + ", uniqueTests) + " от " + reportData.testdate + ".doc";
     }
 
     public static void main(String[] args) throws Exception {

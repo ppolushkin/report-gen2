@@ -16,12 +16,14 @@ public class ReportData {
 
     public String patient;
     public String sex;
+    public String diagnosis;
     public String birthdate;
     public String testdate;
     public String department;
     public String doctor;
     public List<GenTest> genTests = new ArrayList<>();
     public String tester;
+    public String material;
 
     public static class GenTest {
         public String description;
