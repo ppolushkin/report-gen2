@@ -135,6 +135,12 @@ public class Application implements CommandLineRunner {
                 reportData.show_comment = true;
                 reportData.comment = ReportData.HAS_JAK2_NO_9_22_COMMENT_TEXT;
             }
+            if (!found_jak2 && found_9_22) {
+                //do nothing
+            }
+            if (found_jak2 && found_9_22) {
+                //todo: ?
+            }
         }
 
         templateService.buildReport(reportData, outputFolder);
