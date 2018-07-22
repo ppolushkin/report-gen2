@@ -37,14 +37,14 @@ public class ReportData {
     public String material;
     public String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.uuuu"));
 
-    public boolean show_jak2v617f_comment = true;//todo:
-    public boolean show_calr_comment = true;//todo:
+    public boolean has_jak2;
+    public boolean has_calr;
 
-    public boolean show_comment = true;//todo:
-    public String comment = NO_JAK2_NO_9_22_COMMENT_TEXT;
+    public boolean show_comment;
+    public String comment;
 
-    public boolean show_summary = true;
-    public String summary = "Обнаружена комплексная инсерция -телеция: kalsdjfasldkfj; afadsnsdfmasndfm dsfja;sldkfj;s Обнаружена комплексная инсерция -телеция: kalsdjfasldkfj; afadsnsdfmasndfm adfsdfsadfas Обнаружена комплексная инсерция -телеция: kalsdjfasldkfj; afadsnsdfmasndfm dfasdfasdfasdf Обнаружена комплексная инсерция -телеция: kalsdjfasldkfj; afadsnsdfmasndfm dsfja;sldkfj;s Обнаружена комплексная инсерция -телеция: kalsdjfasldkfj; afadsnsdfmasndfm adfsdfsadfas Обнаружена комплексная инсерция -телеция: kalsdjfasldkfj; afadsnsdfmasndfm dfasdfasdfasdf";
+    public boolean show_summary;
+    public String summary;
 
     public void addGenTest(String description, String shortDescription, String result, boolean print) {
         genTests.add(new GenTest(description, shortDescription, result, print));

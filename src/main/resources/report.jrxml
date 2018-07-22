@@ -13,12 +13,12 @@
 	<parameter name="tester" class="java.lang.String"/>
 	<parameter name="material" class="java.lang.String"/>
 	<parameter name="today" class="java.lang.String"/>
-	<parameter name="show_jak2v617f_comment" class="java.lang.Boolean"/>
+	<parameter name="has_jak2" class="java.lang.Boolean"/>
 	<parameter name="show_comment" class="java.lang.Boolean"/>
 	<parameter name="comment" class="java.lang.String"/>
 	<parameter name="show_summary" class="java.lang.Boolean"/>
 	<parameter name="summary" class="java.lang.String"/>
-	<parameter name="show_calr_comment" class="java.lang.Boolean"/>
+	<parameter name="has_calr" class="java.lang.Boolean"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="result" class="java.lang.String"/>
 	<background>
@@ -228,7 +228,7 @@
 		<band height="110" splitType="Stretch">
 			<staticText>
 				<reportElement x="3" y="8" width="554" height="14" uuid="10ab9248-b5a7-4fac-8384-48b858f418a5">
-					<printWhenExpression><![CDATA[$P{show_jak2v617f_comment}]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{has_jak2}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="DejaVu Serif" size="8"/>
@@ -301,7 +301,7 @@
 			</textField>
 			<staticText>
 				<reportElement x="1" y="173" width="63" height="13" uuid="a9ba656b-039e-4ed5-8420-1771bacb2906">
-					<printWhenExpression><![CDATA[$P{show_calr_comment}]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{has_calr}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="DejaVu Serif" size="8" isBold="true"/>
@@ -310,7 +310,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="7" y="185" width="548" height="49" uuid="ab281998-1b1c-4e60-9b34-10cb02f76d39">
-					<printWhenExpression><![CDATA[$P{show_calr_comment}]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{has_calr}]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Justified">
 					<font fontName="DejaVu Serif" size="8"/>
