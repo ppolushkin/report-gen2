@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="1ba4d187-6eeb-4954-80b4-aa3750889676">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="128"/>
+	<property name="ireport.y" value="228"/>
 	<parameter name="patient" class="java.lang.String"/>
 	<parameter name="sex" class="java.lang.String"/>
 	<parameter name="diagnosis" class="java.lang.String"/>
@@ -234,7 +234,50 @@ V617F гена JAK2 в клиническом образце.]]></text>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="54" splitType="Stretch"/>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="18" width="172" height="20" uuid="b18dea46-efd9-44b1-b420-519e3867fc04"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11"/>
+				</textElement>
+				<text><![CDATA[Исследователь:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="172" height="20" uuid="5982e29e-1ae1-4976-8cb4-eefdbfcd6a3d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11"/>
+				</textElement>
+				<text><![CDATA[Руководитель лаборатории:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="172" height="20" uuid="597a4d03-dfd3-4820-97c1-1a9ff3ef7ac0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11"/>
+				</textElement>
+				<text><![CDATA[Дата исследования:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="403" y="18" width="152" height="20" uuid="4a6b31e9-f73f-4260-94e7-80fc0cef5fd2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tester}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="38" width="152" height="20" uuid="3dd4bbe4-370c-4226-af73-76d5c5e8e956"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11"/>
+				</textElement>
+				<text><![CDATA[д.б.н. Мартынкевич И.С.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="403" y="58" width="152" height="20" uuid="f7e626f0-b85b-4f7f-a7d2-8423c3589d73"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{today}]]></textFieldExpression>
+			</textField>
+		</band>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>
