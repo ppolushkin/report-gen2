@@ -83,10 +83,10 @@ public class Application implements CommandLineRunner {
 
         reportData.patient = excelReader.readString("B" + lineNumber);
         reportData.sex = excelReader.readString("C" + lineNumber);
-        reportData.birthdate = excelReader.readString("C" + (lineNumber + 1));
+        reportData.birthdate = excelReader.readNumber("C" + (lineNumber + 1));
         reportData.diagnosis = excelReader.readString("D" + (lineNumber + 1));
         reportData.department = excelReader.readString("E" + (lineNumber + 1));
-        reportData.testdate = excelReader.readString("C" + (lineNumber + 2));
+        reportData.testdate = excelReader.readDate("C" + (lineNumber + 2));
         reportData.material = excelReader.readString("D" + (lineNumber + 2));
         reportData.doctor = excelReader.readString("E" + (lineNumber + 2));
 

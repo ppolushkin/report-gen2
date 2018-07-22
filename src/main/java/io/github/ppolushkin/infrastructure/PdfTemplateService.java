@@ -16,14 +16,17 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
-import java.util.*;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 @Service
 public class PdfTemplateService implements TemplateService {
 
     @Override
     public void buildReport(ReportData reportData, String outputFolder) {
-
         try (InputStream inputStream = new ClassPathResource("report.jrxml").getInputStream()) {
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
@@ -52,17 +55,18 @@ public class PdfTemplateService implements TemplateService {
             }
         }
         return reportData.getPatient() + " " + String.join(" + ", uniqueTests) + " от " + reportData.getTestdate() + ".pdf";
-
     }
 
     private List<?> getReportList(ReportData reportData) {
         return reportData.getGenTests();
     }
 
-    private Map<String, Object> getReportParameters(ReportData reportData) {
+    private Map<String, Object> getReportParameters(ReportData reportData) throws IllegalAccessException {
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("parameter1", "Hi there!");
+        for (Field field : reportData.getClass().getDeclaredFields()) {
+            Object value = field.get(reportData);
+            parameters.put(field.getName(), value);
+        }
         return parameters;
     }
-
 }

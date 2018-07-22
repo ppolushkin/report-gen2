@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="1ba4d187-6eeb-4954-80b4-aa3750889676">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="228"/>
+	<property name="ireport.y" value="328"/>
 	<parameter name="patient" class="java.lang.String"/>
 	<parameter name="sex" class="java.lang.String"/>
 	<parameter name="diagnosis" class="java.lang.String"/>
@@ -14,6 +14,7 @@
 	<parameter name="material" class="java.lang.String"/>
 	<parameter name="today" class="java.lang.String"/>
 	<parameter name="show_jak2v617f_comment" class="java.lang.Boolean"/>
+	<parameter name="show_calr_comment" class="java.lang.Boolean"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="result" class="java.lang.String"/>
 	<background>
@@ -79,49 +80,49 @@
 				<text><![CDATA[Пациент:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="64" y="59" width="108" height="20" uuid="8321c380-7c23-4815-b63e-4b499eb0d0b6"/>
+				<reportElement x="64" y="59" width="136" height="20" uuid="8321c380-7c23-4815-b63e-4b499eb0d0b6"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{patient}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="172" y="59" width="38" height="20" uuid="2352c987-fcfb-4005-b9fd-b47255e4dcf5"/>
+				<reportElement x="200" y="59" width="38" height="20" uuid="2352c987-fcfb-4005-b9fd-b47255e4dcf5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<text><![CDATA[Пол:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="209" y="59" width="43" height="20" uuid="432dd738-2612-486e-9b4a-7ffe6de0aca6"/>
+				<reportElement x="237" y="59" width="43" height="20" uuid="432dd738-2612-486e-9b4a-7ffe6de0aca6"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{sex}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="390" y="59" width="54" height="20" uuid="7d87820e-9c62-44fd-ae24-cd58ee7b4283"/>
+				<reportElement x="390" y="59" width="82" height="20" uuid="7d87820e-9c62-44fd-ae24-cd58ee7b4283"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
-				<text><![CDATA[Возраст:]]></text>
+				<text><![CDATA[Возраст / г.р.:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="444" y="59" width="110" height="20" uuid="9ae42fb8-ac04-4411-9b5b-945df6740ef1"/>
+				<reportElement x="472" y="59" width="82" height="20" uuid="9ae42fb8-ac04-4411-9b5b-945df6740ef1"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{birthdate}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="252" y="59" width="64" height="20" uuid="25a2ea18-8191-4c75-801a-daa525b1ec0a"/>
+				<reportElement x="280" y="59" width="64" height="20" uuid="25a2ea18-8191-4c75-801a-daa525b1ec0a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<text><![CDATA[Диагноз:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="316" y="59" width="44" height="20" uuid="5086f649-847c-401d-b918-531fdd583b26"/>
+				<reportElement x="344" y="59" width="44" height="20" uuid="5086f649-847c-401d-b918-531fdd583b26"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
@@ -156,7 +157,7 @@
 				<textFieldExpression><![CDATA[$P{testdate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="172" y="99" width="188" height="20" uuid="c9f50edd-f258-43bf-bd0d-7c986c3183fc"/>
+				<reportElement x="172" y="99" width="192" height="20" uuid="c9f50edd-f258-43bf-bd0d-7c986c3183fc"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
@@ -198,22 +199,22 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement x="277" y="0" width="277" height="20" uuid="44b7976d-621a-4de0-a0ce-30e8a03d5148"/>
+				<reportElement x="239" y="0" width="315" height="20" uuid="44b7976d-621a-4de0-a0ce-30e8a03d5148"/>
 			</rectangle>
 			<rectangle>
-				<reportElement x="0" y="0" width="277" height="20" uuid="7b304721-858d-4dcb-b0c5-3e9777f9897a"/>
+				<reportElement x="0" y="0" width="239" height="20" uuid="7b304721-858d-4dcb-b0c5-3e9777f9897a"/>
 			</rectangle>
 			<textField>
-				<reportElement x="0" y="0" width="277" height="20" uuid="c1ce82fe-af47-4a09-bb77-f3f67de75608"/>
-				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif" size="12" isBold="false"/>
+				<reportElement x="4" y="0" width="235" height="20" uuid="c1ce82fe-af47-4a09-bb77-f3f67de75608"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="277" y="0" width="278" height="20" uuid="7a661285-12e5-4615-94ef-d66b35bafb6f"/>
-				<textElement textAlignment="Center">
-					<font fontName="DejaVu Serif" size="12"/>
+				<reportElement x="243" y="0" width="311" height="20" uuid="7a661285-12e5-4615-94ef-d66b35bafb6f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
 			</textField>
@@ -222,19 +223,18 @@
 	<columnFooter>
 		<band height="46" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="12" width="554" height="20" uuid="10ab9248-b5a7-4fac-8384-48b858f418a5">
+				<reportElement x="3" y="8" width="554" height="14" uuid="10ab9248-b5a7-4fac-8384-48b858f418a5">
 					<printWhenExpression><![CDATA[$P{show_jak2v617f_comment}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
-					<font fontName="DejaVu Serif" size="10"/>
+					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<text><![CDATA[*Воспроизводимая чувствительность метода составляет более 1% мутантного аллеля
-V617F гена JAK2 в клиническом образце.]]></text>
+				<text><![CDATA[* Воспроизводимая чувствительность метода составляет более 1% мутантного аллеля V617F гена JAK2 в клиническом образце.]]></text>
 			</staticText>
 		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="100" splitType="Stretch">
+		<band height="150" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="18" width="172" height="20" uuid="b18dea46-efd9-44b1-b420-519e3867fc04"/>
 				<textElement verticalAlignment="Middle">
@@ -277,6 +277,26 @@ V617F гена JAK2 в клиническом образце.]]></text>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{today}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="1" y="87" width="63" height="13" uuid="a9ba656b-039e-4ed5-8420-1771bacb2906">
+					<printWhenExpression><![CDATA[$P{show_calr_comment}]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ссылки:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="99" width="548" height="49" uuid="ab281998-1b1c-4e60-9b34-10cb02f76d39">
+					<printWhenExpression><![CDATA[$P{show_calr_comment}]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[1. Klampfl T, Gisslinger H, Harutyunyan AS, et al. Somatic mutations of calreticulin in myeloproliferative neoplasms. – N Engl J Med. – 2013. – Vol. 369. – № 25. – P. 2379-90.
+2. Barbui T, Thiele J, Gisslinger H, et al. The 2016 WHO classification and diagnostic criteria for myeloproliferative neoplasms: document summary and in-depth discussion. – Blood Cancer J. – 2018. – Vol. 8. –
+№ 2. – 15 P. – doi: 10.1038/s41408-018-0054-y]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

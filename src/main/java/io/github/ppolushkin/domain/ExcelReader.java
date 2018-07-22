@@ -8,12 +8,16 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellReference;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Pavel Polushkin
  * 28.06.2017.
  */
 public interface ExcelReader {
+
+    final static SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
 
     void loadWorkBook(String resourceLocation, String workSheet) throws IOException, InvalidFormatException;
 
@@ -24,6 +28,11 @@ public interface ExcelReader {
     default String readNumber(String cellLocation) {
         Cell cell = getCell(cellLocation);
         return readNumber(cell);
+    }
+
+    default String readDate(String cellLocation) {
+        Cell cell = getCell(cellLocation);
+        return readDate(cell);
     }
 
     default String readString(String cellLocation) {
@@ -42,6 +51,15 @@ public interface ExcelReader {
         try {
             double val = cell.getNumericCellValue();
             return "" + (int) val;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    default String readDate(Cell cell) {
+        try {
+            Date val = cell.getDateCellValue();
+            return "" + formatter.format(val);
         } catch (Exception e) {
             return "";
         }
