@@ -5,6 +5,7 @@ import io.github.ppolushkin.domain.ReportData;
 import io.github.ppolushkin.domain.TemplateService;
 import org.apache.poi.ss.util.CellReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -42,7 +43,9 @@ public class Application implements CommandLineRunner {
     private ExcelReader excelReader;
 
     @Autowired
-    private TemplateService templateService;
+    @Qualifier(value = "PdfTemplateService")
+//    @Qualifier(value = "DocTemplateService")
+    private TemplateService pdfTemplateService;
 
     @PostConstruct
     private void init() {
@@ -143,7 +146,7 @@ public class Application implements CommandLineRunner {
             }
         }
 
-        templateService.buildReport(reportData, outputFolder);
+        pdfTemplateService.buildReport(reportData, outputFolder);
     }
 
     /**

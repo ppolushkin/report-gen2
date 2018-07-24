@@ -8,10 +8,11 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,12 @@ import java.util.Map;
 import java.util.TreeSet;
 
 @Service
-@Qualifier(value = "PdfTemplateService")
-public class PdfTemplateService implements TemplateService {
+@Qualifier(value = "DocTemplateService")
+public class DocTemplateService implements TemplateService {
 
     @Override
     public void buildReport(ReportData reportData, String outputFolder) {
-        try (InputStream inputStream = new ClassPathResource("report.jrxml").getInputStream()) {
+        try (InputStream inputStream = new ClassPathResource("no_name_report.jrxml").getInputStream()) {
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
@@ -37,17 +38,17 @@ public class PdfTemplateService implements TemplateService {
                     getReportParameters(reportData),
                     new JRBeanCollectionDataSource(getReportList(reportData)));
 
-            JRPdfExporter exporter = new JRPdfExporter();
+//            Exporter exporter = new JRDocxExporter();
+            Exporter exporter = new JROdtExporter();
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
             exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFolder + getReportName(reportData)));
-            SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-            exporter.setConfiguration(configuration);
             exporter.exportReport();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
 
     private String getReportName(ReportData reportData) {
         TreeSet<String> uniqueTests = new TreeSet<>();
@@ -56,7 +57,7 @@ public class PdfTemplateService implements TemplateService {
                 uniqueTests.add(genTest.getShortDescription());
             }
         }
-        return reportData.getPatient() + " " + String.join(" + ", uniqueTests) + " от " + reportData.getTestdate() + ".pdf";
+        return reportData.getPatient() + " " + String.join(" + ", uniqueTests) + " от " + reportData.getTestdate() + ".odt";
     }
 
     private List<?> getReportList(ReportData reportData) {
@@ -71,4 +72,5 @@ public class PdfTemplateService implements TemplateService {
         }
         return parameters;
     }
+
 }
