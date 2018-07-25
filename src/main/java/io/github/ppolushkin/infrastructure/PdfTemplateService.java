@@ -28,8 +28,8 @@ import java.util.TreeSet;
 public class PdfTemplateService implements TemplateService {
 
     @Override
-    public void buildReport(ReportData reportData, String outputFolder) {
-        try (InputStream inputStream = new ClassPathResource("report.jrxml").getInputStream()) {
+    public void buildReport(String reportTemplateName, ReportData reportData, String outputFolder) {
+        try (InputStream inputStream = new ClassPathResource(reportTemplateName).getInputStream()) {
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
@@ -71,4 +71,5 @@ public class PdfTemplateService implements TemplateService {
         }
         return parameters;
     }
+
 }

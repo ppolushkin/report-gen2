@@ -44,8 +44,8 @@ public class Application implements CommandLineRunner {
 
     @Autowired
     @Qualifier(value = "PdfTemplateService")
-//    @Qualifier(value = "DocTemplateService")
-    private TemplateService pdfTemplateService;
+//    @Qualifier(value = "RtfTemplateService")
+    private TemplateService templateService;
 
     @PostConstruct
     private void init() {
@@ -81,7 +81,7 @@ public class Application implements CommandLineRunner {
 
         reportData.patient = excelReader.readString("B" + lineNumber);
         reportData.sex = excelReader.readString("C" + lineNumber);
-        reportData.birthdate = excelReader.readNumber("C" + (lineNumber + 1));
+        reportData.birthdate = excelReader.readString("C" + (lineNumber + 1));
         reportData.diagnosis = excelReader.readString("D" + (lineNumber + 1));
         reportData.department = excelReader.readString("E" + (lineNumber + 1));
         reportData.testdate = excelReader.readDate("C" + (lineNumber + 2));
@@ -142,11 +142,21 @@ public class Application implements CommandLineRunner {
                 //do nothing
             }
             if (found_jak2 && found_9_22) {
-                //todo: ?
+                //do nothing
             }
         }
 
-        pdfTemplateService.buildReport(reportData, outputFolder);
+        reportData.patientInfo = reportData.patient + ", " + reportData.sex + ", " + reportData.birthdate;
+        templateService.buildReport(getTemplateName(reportData), reportData, outputFolder);
+    }
+
+    private String getTemplateName(ReportData reportData) {
+        String department = reportData.department;
+        if ("ХЕЛИКС".equalsIgnoreCase(department) || "ИНВИТРО".equalsIgnoreCase(department)) {
+            return "no_name_report.jrxml";
+        } else {
+            return "report.jrxml";
+        }
     }
 
     /**

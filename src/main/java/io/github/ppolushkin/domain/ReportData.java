@@ -24,6 +24,7 @@ public class ReportData {
     public String dnaNumber;
     public String rnaNumber;
 
+    public String patientInfo;
     public String patient;
     public String sex;
     public String diagnosis;

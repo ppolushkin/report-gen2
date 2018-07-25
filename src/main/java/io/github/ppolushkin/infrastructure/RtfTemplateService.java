@@ -8,14 +8,10 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.oasis.JROdtExporter;
-import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
-import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import org.springframework.beans.factory.annotation.Qualifier;
+import net.sf.jasperreports.export.SimpleWriterExporterOutput;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -24,13 +20,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-@Service
-@Qualifier(value = "DocTemplateService")
-public class DocTemplateService implements TemplateService {
+//@Service
+//@Qualifier(value = "RtfTemplateService")
+public class RtfTemplateService implements TemplateService {
 
     @Override
-    public void buildReport(ReportData reportData, String outputFolder) {
-        try (InputStream inputStream = new ClassPathResource("no_name_report.jrxml").getInputStream()) {
+    public void buildReport(String reportTemplateName, ReportData reportData, String outputFolder) {
+        try (InputStream inputStream = new ClassPathResource(reportTemplateName).getInputStream()) {
             JasperReport jasperReport = JasperCompileManager.compileReport(inputStream);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(
@@ -39,9 +35,9 @@ public class DocTemplateService implements TemplateService {
                     new JRBeanCollectionDataSource(getReportList(reportData)));
 
 //            Exporter exporter = new JRDocxExporter();
-            Exporter exporter = new JROdtExporter();
+            JRRtfExporter exporter = new JRRtfExporter();
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputFolder + getReportName(reportData)));
+            exporter.setExporterOutput(new SimpleWriterExporterOutput(outputFolder + getReportName(reportData)));
             exporter.exportReport();
 
         } catch (Exception e) {
@@ -57,7 +53,7 @@ public class DocTemplateService implements TemplateService {
                 uniqueTests.add(genTest.getShortDescription());
             }
         }
-        return reportData.getPatient() + " " + String.join(" + ", uniqueTests) + " от " + reportData.getTestdate() + ".odt";
+        return reportData.getPatient() + " " + String.join(" + ", uniqueTests) + " от " + reportData.getTestdate() + ".rtf";
     }
 
     private List<?> getReportList(ReportData reportData) {

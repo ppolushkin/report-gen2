@@ -6,6 +6,6 @@ package io.github.ppolushkin.domain;
  */
 public interface TemplateService {
 
-    void buildReport(ReportData reportData, String outputFolder);
+    void buildReport(String reportTemplateName, ReportData reportData, String outputFolder);
 
 }
