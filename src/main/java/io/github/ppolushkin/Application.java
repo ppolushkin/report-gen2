@@ -64,8 +64,14 @@ public class Application implements CommandLineRunner {
         excelReader.loadWorkBook(excelLocation, sheetName);
 
         for (int line = startLine; line <= endLine; line += 3) {
-            ReportData reportData = getReportData(line);
-            generateReport(reportData);
+            boolean printPatient = !("" + excelReader.readString("I" + line)).trim().isEmpty();
+            if (printPatient) {
+                ReportData reportData = getReportData(line);
+                generateReport(reportData);
+            } else {
+                logger.log(Level.INFO, "Пропускаю пациента на линнии " + line);
+            }
+
         }
 
     }
