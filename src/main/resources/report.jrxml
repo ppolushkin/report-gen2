@@ -89,28 +89,28 @@
 				<textFieldExpression><![CDATA[$P{patientInfo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="1" y="79" width="54" height="20" uuid="25a2ea18-8191-4c75-801a-daa525b1ec0a"/>
+				<reportElement x="1" y="79" width="63" height="20" uuid="25a2ea18-8191-4c75-801a-daa525b1ec0a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<text><![CDATA[Диагноз:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="55" y="79" width="44" height="20" uuid="5086f649-847c-401d-b918-531fdd583b26"/>
+				<reportElement x="64" y="79" width="44" height="20" uuid="5086f649-847c-401d-b918-531fdd583b26"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{diagnosis}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="113" y="79" width="96" height="20" uuid="178f663f-c711-412e-bc8b-774577862575"/>
+				<reportElement x="113" y="79" width="72" height="20" uuid="178f663f-c711-412e-bc8b-774577862575"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
-				<text><![CDATA[Вид материала:]]></text>
+				<text><![CDATA[Материал:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="209" y="79" width="155" height="20" uuid="ebe2cf37-ef0d-4c9d-a0f0-5cecfaab0692"/>
+				<reportElement x="185" y="79" width="155" height="20" uuid="ebe2cf37-ef0d-4c9d-a0f0-5cecfaab0692"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
@@ -302,7 +302,7 @@
 				<reportElement x="0" y="19" width="555" height="109" uuid="51856d24-4750-4c33-90ea-987fe70e671a">
 					<printWhenExpression><![CDATA[$P{show_comment}]]></printWhenExpression>
 				</reportElement>
-				<textElement verticalAlignment="Top">
+				<textElement textAlignment="Justified" verticalAlignment="Top">
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{comment}]]></textFieldExpression>
