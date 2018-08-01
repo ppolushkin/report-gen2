@@ -1,6 +1,7 @@
 package io.github.ppolushkin;
 
 import io.github.ppolushkin.domain.ExcelReader;
+import io.github.ppolushkin.domain.GenTest;
 import io.github.ppolushkin.domain.ReportData;
 import io.github.ppolushkin.domain.TemplateService;
 import org.apache.poi.ss.util.CellReference;
@@ -14,6 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.PostConstruct;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static io.github.ppolushkin.domain.ReportData.NO_9_22_COMMENT_TEXT;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -133,22 +136,40 @@ public class Application implements CommandLineRunner {
         reportData.has_jak2 = has(reportData, "JAK-2");
         reportData.has_calr = has(reportData, "CALR");
 
-        if (has(reportData, "JAK-2") && has(reportData, "t(9 22)")) {
-            boolean found_jak2 = found(reportData, "JAK-2");
-            boolean found_9_22 = found(reportData, "t(9 22)");
+        boolean has_t9_22 = has(reportData, "t(9 22)");
+        boolean has_t9_22_p230 = has(reportData, "t(9 22)", "p230");
+        boolean found_jak2 = found(reportData, "JAK-2");
+        boolean found_9_22 = found(reportData, "t(9 22)");
+
+        if (reportData.has_jak2 && has_t9_22) { // Заказаны t(9 22) и JAK-2
             if (!found_jak2 && !found_9_22) {
                 reportData.show_comment = true;
-                reportData.comment = ReportData.NO_JAK2_NO_9_22_COMMENT_TEXT;
+                if (has_t9_22_p230) {
+                    reportData.comment = ReportData.NO_JAK2_COMMENT_TEXT;
+                } else {
+                    reportData.comment = ReportData.NO_JAK2_NO_9_22_COMMENT_TEXT;
+                }
             }
             if (found_jak2 && !found_9_22) {
                 reportData.show_comment = true;
-                reportData.comment = ReportData.HAS_JAK2_NO_9_22_COMMENT_TEXT;
+                reportData.comment = NO_9_22_COMMENT_TEXT;
             }
             if (!found_jak2 && found_9_22) {
                 //do nothing
             }
             if (found_jak2 && found_9_22) {
                 //do nothing
+            }
+        } else if (has_t9_22) { // Заказан только t(9 22)
+            if (!found_9_22 && !has_t9_22_p230 &&
+                    (reportData.diagnosis.contains("ХМЛ") || reportData.diagnosis.contains("МПН"))) {
+                reportData.show_comment = true;
+                reportData.comment = NO_9_22_COMMENT_TEXT;
+            }
+        } else if (reportData.has_jak2) { // Заказан только JAK-2
+            if (!found_jak2) {
+                reportData.show_comment = true;
+                reportData.comment = ReportData.NO_JAK2_COMMENT_TEXT;
             }
         }
 
@@ -168,8 +189,15 @@ public class Application implements CommandLineRunner {
     /**
      * Есть ли анализ в отчете?
      */
-    private boolean has(ReportData reportData, String s) {
-        return reportData.genTests.stream().anyMatch(gt -> s.equals(gt.getShortDescription()));
+    private boolean has(ReportData reportData, String shortDescritption) {
+        return reportData.genTests.stream().anyMatch(gt -> shortDescritption.equals(gt.getShortDescription()));
+    }
+
+    /**
+     * Есть ли анализ в отчете?
+     */
+    private boolean has(ReportData reportData, String shortDescritption, String description) {
+        return reportData.genTests.stream().anyMatch(gt -> shortDescritption.equals(gt.getShortDescription()) && gt.getDescription().contains(description));
     }
 
     /**
