@@ -1,0 +1,1 @@
+jre1.8.0_131\bin\java -Xmx1500M -jar report-generator2-1.0.jar -Dspring.config.location=application.properties > logs.txt 2>&1
