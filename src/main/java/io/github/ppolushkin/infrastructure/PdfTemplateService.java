@@ -18,10 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 @Service
 @Qualifier(value = "PdfTemplateService")
@@ -50,7 +47,7 @@ public class PdfTemplateService implements TemplateService {
     }
 
     private String getReportName(ReportData reportData) {
-        TreeSet<String> uniqueTests = new TreeSet<>();
+        LinkedHashSet<String> uniqueTests = new LinkedHashSet<>();
         for (GenTest genTest : reportData.getGenTests()) {
             if (genTest.isPrint()) {
                 uniqueTests.add(genTest.getShortDescription());

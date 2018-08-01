@@ -24,7 +24,7 @@ public class ExcelReaderImpl implements ExcelReader {
         if (workbook != null) {
             throw new IllegalArgumentException("Workbook already opened");
         }
-        this.workbook = WorkbookFactory.create(new File(fileLocation));
+        this.workbook = WorkbookFactory.create(new File(fileLocation), null, true);
         this.workSheet = workSheet;
     }
 
