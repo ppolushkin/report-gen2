@@ -180,7 +180,7 @@
 			</rectangle>
 			<textField>
 				<reportElement x="4" y="0" width="235" height="20" uuid="c1ce82fe-af47-4a09-bb77-f3f67de75608"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" markup="styled">
 					<font fontName="DejaVu Serif" size="11" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
