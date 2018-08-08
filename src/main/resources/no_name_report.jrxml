@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="1ba4d187-6eeb-4954-80b4-aa3750889676">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="4"/>
+	<property name="ireport.y" value="880"/>
 	<parameter name="patientInfo" class="java.lang.String"/>
 	<parameter name="diagnosis" class="java.lang.String"/>
 	<parameter name="testdate" class="java.lang.String"/>
@@ -188,7 +188,7 @@
 	<pageFooter>
 		<band height="260" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="149" width="172" height="20" uuid="b18dea46-efd9-44b1-b420-519e3867fc04"/>
+				<reportElement x="3" y="142" width="172" height="20" uuid="b18dea46-efd9-44b1-b420-519e3867fc04"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
@@ -202,7 +202,7 @@
 				<text><![CDATA[Дата исследования:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="403" y="149" width="152" height="20" uuid="4a6b31e9-f73f-4260-94e7-80fc0cef5fd2"/>
+				<reportElement x="403" y="142" width="152" height="20" uuid="4a6b31e9-f73f-4260-94e7-80fc0cef5fd2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>

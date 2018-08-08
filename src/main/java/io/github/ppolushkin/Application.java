@@ -138,36 +138,42 @@ public class Application implements CommandLineRunner {
 
         boolean has_t9_22 = has(reportData, "t(9 22)");
         boolean has_t9_22_p230 = has(reportData, "t(9 22)", "p230");
-        boolean found_jak2 = found(reportData, "JAK-2");
-        boolean found_9_22 = found(reportData, "t(9 22)");
+        boolean not_found_jak2 = !found(reportData, "JAK-2") && !redo(reportData, "JAK-2");     // не обнаружено и не надо перебирать материал
+        boolean not_found_9_22 = !found(reportData, "t(9 22)") && !redo(reportData, "t(9 22)"); // не обнаружено и не надо перебирать материал
+
+        //
+        // Комментарий про отсутствие 9_22 можно показывать только при диагнозах ХМЛ и МПН и если исследование на ген p230 не заказадно
+        // Это следует из самого комментария
+        //
+        boolean can_show_no_9_22_comment = !has_t9_22_p230 && (reportData.diagnosis.contains("ХМЛ") || reportData.diagnosis.contains("МПН"));
 
         if (reportData.has_jak2 && has_t9_22) { // Заказаны t(9 22) и JAK-2
-            if (!found_jak2 && !found_9_22) {
+            if (not_found_jak2 && not_found_9_22) {
                 reportData.show_comment = true;
-                if (has_t9_22_p230) {
-                    reportData.comment = ReportData.NO_JAK2_COMMENT_TEXT;
-                } else {
+                if (can_show_no_9_22_comment) {
                     reportData.comment = ReportData.NO_JAK2_NO_9_22_COMMENT_TEXT;
+                } else {
+                    reportData.comment = ReportData.NO_JAK2_COMMENT_TEXT;
                 }
             }
-            if (found_jak2 && !found_9_22) {
+            if (!not_found_jak2 && not_found_9_22 && can_show_no_9_22_comment) {
                 reportData.show_comment = true;
                 reportData.comment = NO_9_22_COMMENT_TEXT;
             }
-            if (!found_jak2 && found_9_22) {
+            if (not_found_jak2 && !not_found_9_22) {
                 //do nothing
             }
-            if (found_jak2 && found_9_22) {
+            if (!not_found_jak2 && !not_found_9_22) {
                 //do nothing
             }
+
         } else if (has_t9_22) { // Заказан только t(9 22)
-            if (!found_9_22 && !has_t9_22_p230 &&
-                    (reportData.diagnosis.contains("ХМЛ") || reportData.diagnosis.contains("МПН"))) {
+            if (not_found_9_22 && can_show_no_9_22_comment) {
                 reportData.show_comment = true;
                 reportData.comment = NO_9_22_COMMENT_TEXT;
             }
         } else if (reportData.has_jak2) { // Заказан только JAK-2
-            if (!found_jak2) {
+            if (not_found_jak2) {
                 reportData.show_comment = true;
                 reportData.comment = ReportData.NO_JAK2_COMMENT_TEXT;
             }
@@ -209,6 +215,16 @@ public class Application implements CommandLineRunner {
                         && !gt.getResult().toUpperCase().contains("НЕ ОБНАРУЖЕН")
                         && gt.getResult().toUpperCase().contains("ОБНАРУЖЕН"));
     }
+
+    /**
+     * Надо ли перебрать материал?
+     */
+    private boolean redo(final ReportData reportData, final String shortDescription) {
+        return reportData.genTests.stream().anyMatch(
+                gt -> shortDescription.equalsIgnoreCase(gt.getShortDescription())
+                        && gt.getResult().toUpperCase().contains("ПЕРЕБРАТЬ"));
+    }
+
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
