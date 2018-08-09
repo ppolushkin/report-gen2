@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="1ba4d187-6eeb-4954-80b4-aa3750889676">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="880"/>
+	<property name="ireport.y" value="784"/>
 	<parameter name="patientInfo" class="java.lang.String"/>
 	<parameter name="diagnosis" class="java.lang.String"/>
 	<parameter name="testdate" class="java.lang.String"/>
@@ -188,28 +188,28 @@
 	<pageFooter>
 		<band height="260" splitType="Stretch">
 			<staticText>
-				<reportElement x="3" y="142" width="172" height="20" uuid="b18dea46-efd9-44b1-b420-519e3867fc04"/>
+				<reportElement x="3" y="152" width="110" height="20" uuid="b18dea46-efd9-44b1-b420-519e3867fc04"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<text><![CDATA[Исследователь:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="3" y="168" width="172" height="20" uuid="597a4d03-dfd3-4820-97c1-1a9ff3ef7ac0"/>
+				<reportElement x="318" y="152" width="127" height="20" uuid="597a4d03-dfd3-4820-97c1-1a9ff3ef7ac0"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<text><![CDATA[Дата исследования:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="403" y="142" width="152" height="20" uuid="4a6b31e9-f73f-4260-94e7-80fc0cef5fd2"/>
+				<reportElement x="113" y="152" width="205" height="20" uuid="4a6b31e9-f73f-4260-94e7-80fc0cef5fd2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{tester}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="403" y="168" width="152" height="20" uuid="f7e626f0-b85b-4f7f-a7d2-8423c3589d73"/>
+				<reportElement x="445" y="152" width="97" height="20" uuid="f7e626f0-b85b-4f7f-a7d2-8423c3589d73"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
