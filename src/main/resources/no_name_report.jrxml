@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="1ba4d187-6eeb-4954-80b4-aa3750889676">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="784"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="patientInfo" class="java.lang.String"/>
 	<parameter name="diagnosis" class="java.lang.String"/>
 	<parameter name="testdate" class="java.lang.String"/>
@@ -160,10 +160,10 @@
 				<reportElement x="3" y="8" width="554" height="14" uuid="10ab9248-b5a7-4fac-8384-48b858f418a5">
 					<printWhenExpression><![CDATA[$P{has_jak2}]]></printWhenExpression>
 				</reportElement>
-				<textElement>
+				<textElement markup="styled">
 					<font fontName="DejaVu Serif" size="8"/>
 				</textElement>
-				<text><![CDATA[* Воспроизводимая чувствительность метода составляет более 1% мутантного аллеля V617F гена JAK2 в клиническом образце.]]></text>
+				<text><![CDATA[* Воспроизводимая чувствительность метода составляет более 1% мутантного аллеля V617F гена <i>JAK2</i> в клиническом образце.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1" y="24" width="83" height="13" uuid="102353ee-7aa8-453c-86e2-cc9cde114584">
@@ -178,7 +178,7 @@
 				<reportElement x="1" y="37" width="553" height="72" uuid="098d93cd-e791-4a94-821e-a2639a679178">
 					<printWhenExpression><![CDATA[$P{show_summary}]]></printWhenExpression>
 				</reportElement>
-				<textElement verticalAlignment="Top">
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
 					<font fontName="DejaVu Serif" size="11"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{summary}]]></textFieldExpression>
@@ -248,7 +248,7 @@
 				<reportElement x="0" y="19" width="555" height="109" uuid="51856d24-4750-4c33-90ea-987fe70e671a">
 					<printWhenExpression><![CDATA[$P{show_comment}]]></printWhenExpression>
 				</reportElement>
-				<textElement textAlignment="Justified" verticalAlignment="Top">
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
 					<font fontName="DejaVu Serif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{comment}]]></textFieldExpression>
