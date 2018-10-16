@@ -134,6 +134,8 @@ public class Application implements CommandLineRunner {
 
         reportData.show_summary = !reportData.summary.isEmpty();
         reportData.has_jak2 = has(reportData, "JAK-2");
+        reportData.has_braf_or_myd88 = has(reportData, "BRAF") || has(reportData, "MYD88");
+
         reportData.has_calr = has(reportData, "CALR");
 
         boolean has_t9_22 = has(reportData, "t(9 22)");

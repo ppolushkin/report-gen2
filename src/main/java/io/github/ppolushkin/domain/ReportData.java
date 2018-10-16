@@ -41,6 +41,7 @@ public class ReportData {
     public String today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.uuuu"));
 
     public boolean has_jak2;
+    public boolean has_braf_or_myd88;
     public boolean has_calr;
 
     public boolean show_comment;
