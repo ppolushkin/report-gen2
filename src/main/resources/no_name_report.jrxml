@@ -24,7 +24,12 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="180" splitType="Stretch"/>
+		<band height="180" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="8" width="555" height="123" uuid="6bcc6e98-dc12-4f4a-b745-ce126b16646a"/>
+				<imageExpression><![CDATA["bonne.png"]]></imageExpression>
+			</image>
+		</band>
 	</title>
 	<pageHeader>
 		<band height="170" splitType="Stretch">
