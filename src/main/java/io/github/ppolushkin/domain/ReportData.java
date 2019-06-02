@@ -43,6 +43,7 @@ public class ReportData {
     public boolean has_jak2;
     public boolean has_braf_or_myd88;
     public boolean has_calr;
+    public boolean has_nup214;
 
     public boolean show_comment;
     public String comment;

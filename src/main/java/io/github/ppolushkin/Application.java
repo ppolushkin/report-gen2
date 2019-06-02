@@ -137,6 +137,7 @@ public class Application implements CommandLineRunner {
         reportData.has_braf_or_myd88 = has(reportData, "BRAF") || has(reportData, "MYD88");
 
         reportData.has_calr = has(reportData, "CALR");
+        reportData.has_nup214 = has(reportData, "NUP214");
 
         boolean has_t9_22 = has(reportData, "t(9 22)");
         boolean has_t9_22_p230 = has(reportData, "t(9 22)", "p230");

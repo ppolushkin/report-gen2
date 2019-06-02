@@ -18,6 +18,7 @@
 	<parameter name="show_summary" class="java.lang.Boolean"/>
 	<parameter name="summary" class="java.lang.String"/>
 	<parameter name="has_calr" class="java.lang.Boolean"/>
+	<parameter name="has_nup214" class="java.lang.Boolean"/>
 	<field name="description" class="java.lang.String"/>
 	<field name="result" class="java.lang.String"/>
 	<background>
@@ -232,7 +233,7 @@
 			</textField>
 			<staticText>
 				<reportElement x="1" y="198" width="63" height="13" uuid="a9ba656b-039e-4ed5-8420-1771bacb2906">
-					<printWhenExpression><![CDATA[$P{has_calr}]]></printWhenExpression>
+					<printWhenExpression><![CDATA[$P{has_calr}||$P{has_nup214}]]></printWhenExpression>
 				</reportElement>
 				<textElement>
 					<font fontName="DejaVu Serif" size="8" isBold="true"/>
@@ -249,6 +250,16 @@
 				<text><![CDATA[1. Klampfl T, Gisslinger H, Harutyunyan AS, et al. Somatic mutations of calreticulin in myeloproliferative neoplasms. – N Engl J Med. – 2013. – Vol. 369. – № 25. – P. 2379-90.
 2. Barbui T, Thiele J, Gisslinger H, et al. The 2016 WHO classification and diagnostic criteria for myeloproliferative neoplasms: document summary and in-depth discussion. – Blood Cancer J. – 2018. – Vol. 8. –
 № 2. – 15 P. – doi: 10.1038/s41408-018-0054-y]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="210" width="548" height="49" uuid="84551d91-a039-4c3c-b691-277361d08949">
+					<printWhenExpression><![CDATA[$P{has_nup214}]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Serif" size="8"/>
+				</textElement>
+				<text><![CDATA[1. Graux C, Cools J, Melotte C, et al. Fusion of NUP214 to ABL1 on amplified episomes in T-cell acute lymphoblastic leukemia. – Nat Genet. – 2004. – Vol. 36. –№ 10. – P. 1084–9.
+2. Quinta´s-Cardama A, Tong W, Manshouri T, et al. Activity of tyrosine kinase inhibitors against human NUP214-ABL1-positive T cell malignancies. –  Leukemia. –  2008.  –  Vol. 22 . – P.1117-24.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="6" width="107" height="13" uuid="0d23168f-c7a8-49a9-aafb-42a2a9d04e7f">
