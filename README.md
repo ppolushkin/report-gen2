@@ -11,8 +11,12 @@ outputFolder - директория в которую будут записан�
 
 Чтобы запустить программу, нужно выполнить generate.bat
 
+
+# Build
+`mvnw clean package`
+
 # For development
 1) Copy report-base.xls to ~/Workspace/report-base.xls
-2) Run Application main()
+2) Run Application main() or `mvnw spring-boot:run`
 
 Note: settings are in application.properties
