@@ -25,46 +25,11 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="78" splitType="Stretch">
+		<band height="180" splitType="Stretch">
 			<image>
-				<reportElement x="4" y="3" width="131" height="75" uuid="b2208bf3-6f4f-40a1-94cf-e3ad7d666ede"/>
-				<imageExpression><![CDATA["logo.jpg"]]></imageExpression>
+				<reportElement x="0" y="8" width="555" height="123" uuid="6bcc6e98-dc12-4f4a-b745-ce126b16646a"/>
+				<imageExpression><![CDATA["logo.png"]]></imageExpression>
 			</image>
-			<staticText>
-				<reportElement x="252" y="3" width="300" height="14" uuid="a7346744-2492-4259-8437-52fe9db8048a"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" size="9"/>
-				</textElement>
-				<text><![CDATA[ФГБУ «Российский НИИ гематологии и трансфузиологии»]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="442" y="63" width="109" height="15" uuid="eee70456-0117-4356-9fb9-8b29cac694d4"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" size="9"/>
-				</textElement>
-				<text><![CDATA[genetics.spb@mail.ru]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="363" y="17" width="187" height="14" uuid="fabe6428-3b2c-48f1-bdfd-4033f89771b5"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" size="9"/>
-				</textElement>
-				<text><![CDATA[Лаборатория молекулярной генетики]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="288" y="32" width="263" height="15" uuid="f235b7e9-ab5e-46fa-b265-ce25e4d3de5b"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" size="9"/>
-				</textElement>
-				<text><![CDATA[191024, Санкт-Петербург, ул. 2-я Советская, дом 16]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="445" y="48" width="107" height="15" uuid="a6fe9e46-f136-40ca-ab2c-3bf5a9315b8e"/>
-				<textElement textAlignment="Right">
-					<font fontName="DejaVu Serif" size="9"/>
-				</textElement>
-				<text><![CDATA[Тел.:  (812) 925-05-62]]></text>
-			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -255,7 +220,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Serif" size="11" isBold="true" isItalic="false"/>
 				</textElement>
-				<text><![CDATA[Руководитель лаборатории:]]></text>
+				<text><![CDATA[Руководитель НИЦКМП:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="273" width="196" height="20" uuid="597a4d03-dfd3-4820-97c1-1a9ff3ef7ac0"/>
