@@ -1,22 +1,15 @@
-#Второй генератор отчетов
+# Report-gen2
+Второй генератор отчетов. Он использует **report-base.xml** как входной файл и генерирует pdf отчеты.
 
-
-Перед тем как запустить нужно настроить параметры в application.properties
-
-excelLocation - путь где лежит база. К сожалению, кирилица пока не работает.
-sheetNumber - номер Листа в базе (excel)
-startLine - линия, с которой програма начнет читать
-endLine - линия на которой программа остановится
-outputFolder - директория в которую будут записаны результаты. Ее нужно заранее создать.
-
-Чтобы запустить программу, нужно выполнить generate.bat
-
-
-# Build
+## Build
 `mvnw clean package`
 
-# For development
-1) Copy report-base.xls to ~/Workspace/report-base.xls
-2) Run Application main() or `mvnw spring-boot:run`
+## Develop
+- Make sure `src/resource/application.properties` is correct and `report-base.xls` is on place.
+- Run Application main() or `mvnw spring-boot:run`
 
-Note: settings are in application.properties
+## Update reports
+- Reports are located in `resources` folder, [Jaspersoft® Studio 6.20.1](https://community.jaspersoft.com/project/jasperreports-library/releases) was used
+
+## Install and Use
+[prod/README.md](prod/README.md)
