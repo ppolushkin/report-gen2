@@ -17,5 +17,5 @@
 Чтобы запустить программу, нужно выполнить generate2.bat
 
 ### Известные проблемы:
-- java.lang.OutOfMemoryError - убедитесь, что в `generate2.bat` отсутствует ключ -Xmx
-- EmptyFileException - проверьте путь `excelLocation`
+- OutOfMemoryError - убедитесь, что в `generate2.bat` отсутствует ключ -Xmx
+- EmptyFileException, FileNotFoundException: - проверьте путь `excelLocation`
