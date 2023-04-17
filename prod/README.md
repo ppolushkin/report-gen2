@@ -15,3 +15,7 @@
 - `outputFolder` - директория в которую будут записаны результаты. Ее нужно заранее создать.
 
 Чтобы запустить программу, нужно выполнить generate2.bat
+
+### Известные проблемы:
+- java.lang.OutOfMemoryError - убедитесь, что в `generate2.bat` отсутствует ключ -Xmx
+- EmptyFileException - проверьте путь `excelLocation`
