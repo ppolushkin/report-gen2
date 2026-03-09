@@ -15,7 +15,7 @@
         <java.version>17</java.version>
         <spring-shell.version>3.0.2</spring-shell.version>
         <apache.poi.version>5.2.2</apache.poi.version>
-        <jasperreports.version>6.20.1</jasperreports.version>
+        <jasperreports.version>7.0.4</jasperreports.version>
     </properties>
     <dependencies>
         <dependency>
